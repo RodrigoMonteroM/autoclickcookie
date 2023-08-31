@@ -3,7 +3,7 @@ import fs from "fs";
 
 (async () => {
   // Setup
-  const browser = await chromium.launch({headless: true});
+  const browser = await chromium.launch({headless: false});
   const context = await browser.newContext();
 
   const page = await context.newPage();
@@ -104,6 +104,8 @@ function parseNumber(str: string) : Number {
   }
 
   console.log(numbersArray, limit)
+  console.log(str)
+  
 
   // Buscar billones o trillones
   if (/trillion/i.test(str)) {
