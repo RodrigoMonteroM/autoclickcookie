@@ -4,7 +4,7 @@ import fs from "fs";
 (async () => {
   // Setup
   const browser = await chromium.launch({
-    headless: true,
+    headless: false,
   });
   const context = await browser.newContext();
 
@@ -13,7 +13,7 @@ import fs from "fs";
   await page.goto("https://orteil.dashnet.org/cookieclicker/");
 
   try {
-    const token = fs.readFileSync("token.txt", "utf-8");
+    const token = fs.readFileSync("./token.txt", "utf-8");
 
     await page.evaluate((tokenFile) => {
       localStorage.setItem("CookieClickerGame", tokenFile);
@@ -25,7 +25,7 @@ import fs from "fs";
         return tokenLS as string;
       });
 
-      fs.writeFileSync("token.txt", tokenValue);
+      fs.writeFileSync("./token.txt", tokenValue);
     }, 5000);
   }
 
@@ -60,7 +60,7 @@ function autoSave(page: Page) {
       });
 
       if (lsToken) {
-        fs.writeFileSync("token.txt", lsToken);
+        fs.writeFileSync("./token.txt", lsToken);
       } else {
         console.log("Error to get the token from ls");
       }

@@ -2,9 +2,11 @@
   "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "ts-node index.ts"
+    "dev": "node disc/index.js",
+    "start": "node disc/index.js"
   },
   "author": "",
   "license": "ISC",
