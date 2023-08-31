@@ -4,7 +4,7 @@ import fs from "fs";
 (async () => {
   // Setup
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
   });
   const context = await browser.newContext();
 
@@ -40,7 +40,7 @@ import fs from "fs";
   const startClicking: boolean = true;
 
   await autoSave(page);
-  
+
   while (startClicking) {
     const cookieButton = await page.$("#bigCookie");
 
