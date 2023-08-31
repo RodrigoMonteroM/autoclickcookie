@@ -85,7 +85,7 @@ async function  autoSave(page: Page) {
   }, 10000);
 }
 
-function parseNumber(str: string) {
+function parseNumber(str: string) : Number {
 
   // Quitar espacios extras
   str = str.trim();
