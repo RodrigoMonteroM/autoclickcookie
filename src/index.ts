@@ -41,18 +41,35 @@ import fs from "fs";
 
   await autoSave(page);
 
+
+  setInterval(async() => {
+    const amountHTML = await page.$("#cookies") ?? null;
+    const text = await amountHTML?.textContent();
+    const amount = await text?.split(" ")[0];
+
+    parseNumber(amount!)
+    
+  
+  }, 10000)
+
+ 
+
+
   while (startClicking) {
     const cookieButton = await page.$("#bigCookie");
 
     await cookieButton?.click();
+    
   }
+
+
 
   // Teardown
   /*  await context.close();
   await browser.close(); */
 })();
 
-function autoSave(page: Page) {
+async function  autoSave(page: Page) {
   setInterval(async () => {
     try {
       const lsToken = await page.evaluate(() => {
@@ -68,3 +85,36 @@ function autoSave(page: Page) {
   }, 10000);
 }
 
+function parseNumber(str: string) {
+
+  // Quitar espacios extras
+  str = str.trim();
+  let numbersArray: string[] = []
+  let limit = null
+  const regex = /^\d+$/;
+
+
+  for(const char of str){
+    if(regex.test(char)){
+      numbersArray.push(char)
+    }else if(char === "."){
+      continue
+    }else if(typeof char == "string"){
+      limit = char
+      break;
+    }
+  }
+
+  console.log(numbersArray, limit)
+
+  // Buscar billones o trillones
+  if (/trillion/i.test(str)) {
+    str = str.replace(/trillion/i, '000000000000');
+  } else if (/billion/i.test(str)) {
+    str = str.replace(/billion/i, '000000000');  
+  }
+
+  // Convertir a número
+  return Number(str);
+
+}
